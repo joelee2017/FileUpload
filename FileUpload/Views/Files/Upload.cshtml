@@ -1,0 +1,19 @@
+﻿
+@{
+    ViewBag.Title = "Upload";
+}
+
+<h2>檔案上傳</h2>
+
+@using (Html.BeginForm("Upload", "Files", FormMethod.Post, new { @enctype = "multipart/form-data" }))
+{
+    @Html.AntiForgeryToken()
+    <fieldset>
+        <legend>多檔上傳</legend>
+        @Html.TextBox("files",null,new {@type="file",@multiple="multiple" })
+        <br />
+        <button type="submit" title="執行多檔上傳" class="btn btn-primary">
+            <span class="glyphicon glyphicon-upload"></span>
+        上傳</button>
+    </fieldset>
+}
