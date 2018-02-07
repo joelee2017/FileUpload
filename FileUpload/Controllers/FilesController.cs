@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
+using System.Net.Mime;
 using System.Web;
 using System.Web.Mvc;
 
@@ -12,7 +13,20 @@ namespace FileUpload.Controllers
         // GET: Files
         public ActionResult Index()
         {
-            return View();
+            DirectoryInfo di = new DirectoryInfo(Server.MapPath("~/Uploads"));
+            
+            var query =(
+                from file in di.EnumerateFiles("*.*")
+                select file).Select((file, Index)=> new DownloadFile
+                {
+                    ID = Index + 1,
+                    FileName =file.Name,
+                    Length =file.Length,
+                    LastWriteTime = file.LastWriteTime
+                    
+                });
+
+            return View(query);
         }
 
         public ActionResult Upload()
@@ -38,6 +52,19 @@ namespace FileUpload.Controllers
                 }
             }
             return RedirectToAction("Index");
+        }
+
+
+        public FileResult Download(string FileName)
+        {
+            string DownloadFilename = Path.Combine(Server.MapPath("~/Uploads"), FileName);
+            ContentDisposition cd = new ContentDisposition
+            {
+                FileName = FileName, //設定下載檔案名稱
+                Inline = false,      //禁止直接顯示檔案內容,針對過舊版本Browser
+            };
+            Response.AppendHeader("Content-Disposition", cd.ToString());
+            return File(DownloadFilename, MediaTypeNames.Application.Octet);
         }
     }
 }

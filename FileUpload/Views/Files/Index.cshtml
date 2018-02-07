@@ -1,7 +1,50 @@
-﻿
+﻿@model IEnumerable<FileUpload.Controllers.DownloadFile>
+
 @{
     ViewBag.Title = "Index";
 }
 
 <h2>Index</h2>
 
+<p>
+    @Html.ActionLink("檔案上傳", "Upload","Files",new {@class="btn btn-primary glyphicon glyphicon-upload" })
+</p>
+<table class="table table-bordered table-hover table-striped">
+    <tr>
+
+        <th>
+            @Html.DisplayNameFor(model => model.ID)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.FileName)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Length)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.LastWriteTime)
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+
+        <td>
+            @Html.DisplayFor(modelItem => item.ID)
+        </td>
+        <td>
+            @*@Html.DisplayFor(modelItem => item.FileName)*@
+            @Html.ActionLink(item.FileName,"Download",new { FileName=item.FileName })
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Length)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.LastWriteTime)
+        </td>
+
+    </tr>
+}
+
+</table>
