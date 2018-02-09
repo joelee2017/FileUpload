@@ -262,6 +262,9 @@
     <Content Include="Views\Shared\_LoginPartial.cshtml" />
     <Content Include="Views\Files\Upload.cshtml" />
     <Content Include="Views\Files\Index.cshtml" />
+    <Content Include="Views\Home\DivideByZeroException.cshtml" />
+    <Content Include="Views\Home\Error.cshtml" />
+    <Content Include="Views\Home\NullReferenceException.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

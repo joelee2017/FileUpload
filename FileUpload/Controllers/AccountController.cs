@@ -13,6 +13,7 @@ using FileUpload.Models;
 namespace FileUpload.Controllers
 {
     [Authorize]
+    //[Authorize(Roles ="Admin")]使用者必須是Admin
     public class AccountController : Controller
     {
         private ApplicationSignInManager _signInManager;

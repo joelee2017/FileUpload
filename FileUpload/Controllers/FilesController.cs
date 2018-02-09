@@ -11,6 +11,8 @@ namespace FileUpload.Controllers
     public class FilesController : Controller
     {
         // GET: Files
+        //[Authorize]強制方法驗証
+        //[OutputCache(Duration =60)]輸出結果存在60秒
         public ActionResult Index()
         {
             DirectoryInfo di = new DirectoryInfo(Server.MapPath("~/Uploads"));
